@@ -64,7 +64,8 @@ public class AuthorServiceImpl implements AuthorService{
                             .id(book.getId())
                             .build()
                     ).toList();
-            AuthorDtoList.add(AuthorDto.builder()
+            if (!bookDtoList.isEmpty())
+                AuthorDtoList.add(AuthorDto.builder()
                     .books(bookDtoList)
                     .id(author.getId())
                     .name(author.getName())
