@@ -50,7 +50,7 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     private List <AuthorDto> convertToDto (Genre genre, List<Author> authors) {
-        ArrayList <AuthorDto> AuthorDtoList = new ArrayList<AuthorDto>();
+        ArrayList<AuthorDto> AuthorDtoList = new ArrayList<AuthorDto>();
         for (Author author : authors) {
             List<BookDto> bookDtoList = author.getBooks()
                     .stream()
@@ -71,6 +71,9 @@ public class AuthorServiceImpl implements AuthorService{
                     .surname(author.getSurname())
                     .build());
         }
+
+
         return AuthorDtoList;
     }
+
 }
