@@ -7,8 +7,8 @@ import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import ru.itgirl.libraryproject.dto.BookDto;
-import ru.itgirl.libraryproject.dto.GenreDto;
+import ru.itgirl.libraryproject.dto.*;
+import ru.itgirl.libraryproject.models.Author;
 import ru.itgirl.libraryproject.models.Book;
 import ru.itgirl.libraryproject.repositories.BookRepository;
 
@@ -53,5 +53,41 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findOne(specification).orElseThrow();
 
         return convertEntityToDto(book);
+    }
+
+    @Override
+    public BookDto createBook (BookCreateDto bookCreateDto) {
+        Book book = bookRepository.save(convertDtoToEntity(bookCreateDto));
+        BookDto bookDto = convertEntityToDto(book);
+        return bookDto;
+    }
+
+    private Book convertDtoToEntity (BookCreateDto bookCreateDto) {
+        return Book.builder()
+                .name(bookCreateDto.getName())
+                .build();
+
+    }
+
+
+    private Author convertDtoToEntity (AuthorCreateDto authorCreateDto) {
+        return Author.builder()
+                .name(authorCreateDto.getName())
+                .surname(authorCreateDto.getSurname())
+                .build();
+    }
+
+    @Override
+    public BookDto updateBook (BookUpdateDto bookUpdateDto) {
+        Book book = bookRepository.findById(bookUpdateDto.getId()).orElseThrow();
+        book.setName(bookUpdateDto.getName());
+        Book savedBook = bookRepository.save(book);
+        BookDto bookDto = convertEntityToDto(savedBook);
+        return bookDto;
+    }
+
+    @Override
+    public void deleteBook (Long id) {
+        bookRepository.deleteById(id);
     }
 }

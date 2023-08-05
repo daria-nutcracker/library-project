@@ -1,12 +1,11 @@
 package ru.itgirl.libraryproject.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.itgirl.libraryproject.dto.AuthorCreateDto;
 import ru.itgirl.libraryproject.dto.AuthorDto;
 import ru.itgirl.libraryproject.Service.AuthorService;
+import ru.itgirl.libraryproject.dto.AuthorUpdateDto;
 
 import java.util.List;
 
@@ -39,4 +38,19 @@ public class AuthorController {
         return authorService.getByNameV3(name);
     }
 
+    @PostMapping("/author/create")
+    AuthorDto createAuthor (@RequestBody AuthorCreateDto authorCreateDto) {
+        return authorService.createAuthor(authorCreateDto);
+    }
+
+    @PutMapping("/author/update")
+    AuthorDto updateAuthor (@RequestBody AuthorUpdateDto authorUpdateDto) {
+        return authorService.updateAuthor(authorUpdateDto);
+    }
+
+
+    @DeleteMapping ("/author/delete/{id}")
+    void updateAuthor (@PathVariable("id") Long id) {
+        authorService.deleteAuthor(id);
+    }
 }
