@@ -21,6 +21,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
+    @Setter
     private Genre genre;
 
     @ManyToMany

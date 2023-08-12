@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BookCreateDto {
     private String name;
-   // private GenreDto genre;
+  // private GenreDto genre;
+  private Long genre;
 }
