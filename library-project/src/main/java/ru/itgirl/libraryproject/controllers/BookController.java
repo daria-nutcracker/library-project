@@ -1,19 +1,27 @@
 package ru.itgirl.libraryproject.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itgirl.libraryproject.dto.AuthorDto;
 import ru.itgirl.libraryproject.dto.BookCreateDto;
 import ru.itgirl.libraryproject.dto.BookDto;
 import ru.itgirl.libraryproject.Service.BookService;
 import ru.itgirl.libraryproject.dto.BookUpdateDto;
+import org.springframework.ui.Model;
 
 @RestController
 @RequiredArgsConstructor
+@Controller
 public class BookController {
 
     private final BookService bookService;
 
+    @GetMapping("/books")
+    String getBooksView(Model model) {
+        model.addAttribute("books", bookService.getAllBooks());
+        return "books";
+    }
     @GetMapping("/book/{id}")
     BookDto getAuthorById (@PathVariable("id") Long id) {
         return bookService.getBookById(id);

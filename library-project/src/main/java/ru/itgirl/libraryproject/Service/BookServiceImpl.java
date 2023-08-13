@@ -16,6 +16,7 @@ import ru.itgirl.libraryproject.repositories.GenreRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,11 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final GenreRepository genreRepository;
 
+    @Override
+    public List <BookDto> getAllBooks() {
+        List <Book> books = bookRepository.findAll();
+        return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
     @Override
     public BookDto getBookById (Long id) {
         Book book = bookRepository.findById(id).orElseThrow();
