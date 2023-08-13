@@ -25,9 +25,17 @@ public class BookServiceImpl implements BookService {
     private final GenreRepository genreRepository;
 
     @Override
-    public List <BookDto> getAllBooks() {
+    public List <BookOutputDto> getAllBooks() {
         List <Book> books = bookRepository.findAll();
-        return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        return books.stream().map(this::convertEntityToDto3).collect(Collectors.toList());
+    }
+
+    private BookOutputDto convertEntityToDto3 (Book book) {
+        return BookOutputDto.builder()
+                .id(book.getId())
+                .genre(book.getGenre().getName())
+                .name(book.getName())
+                .build();
     }
     @Override
     public BookDto getBookById (Long id) {

@@ -4,12 +4,13 @@ import ru.itgirl.libraryproject.dto.AuthorDto;
 import ru.itgirl.libraryproject.dto.BookCreateDto;
 import ru.itgirl.libraryproject.dto.BookDto;
 import ru.itgirl.libraryproject.dto.BookUpdateDto;
+import ru.itgirl.libraryproject.dto.BookOutputDto;
 
 import java.util.List;
 
 public interface BookService {
 
-    List<BookDto> getAllBooks();
+    List<BookOutputDto> getAllBooks();
     BookDto getBookById (Long id);
     BookDto getByNameV1 (String name);
 
