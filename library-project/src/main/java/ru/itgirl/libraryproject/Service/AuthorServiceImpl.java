@@ -8,17 +8,26 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject.dto.*;
 import ru.itgirl.libraryproject.models.Author;
+import ru.itgirl.libraryproject.models.Book;
 import ru.itgirl.libraryproject.models.Genre;
 import ru.itgirl.libraryproject.repositories.AuthorRepository;
 import ru.itgirl.libraryproject.repositories.GenreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService{
     private final AuthorRepository authorRepository;
     private final GenreRepository genreRepository;
+
+    @Override
+    public List <AuthorDto> getAllAuthors() {
+        List <Author> authors = authorRepository.findAll();
+        return authors.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+    }
     @Override
     public AuthorDto getAuthorById (Long id) {
         Author author = authorRepository.findById(id).orElseThrow();

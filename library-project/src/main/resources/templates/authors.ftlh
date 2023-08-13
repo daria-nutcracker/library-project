@@ -4,18 +4,18 @@
 </head>
 <body>
 <div class="container">
-<h2>BOOKS</h2>
+<h2>AUTHORS</h2>
 <ul class="responsive-table">
 <li class="table-header">
 <div class="col col-1">ID</div>
 <div class="col col-2">NAME</div>
-<div class="col col-3">GENRE</div>
+<div class="col col-3">SURNAME</div>
 </li>
-<#list books as book>
+<#list authors as author>
 <li class="table-row">
-<div class="col col-1">${book.id}</div>
-<div class="col col-2">${book.name}</div>
-<div class="col col-3">${book.genre}</div>
+<div class="col col-1">${author.id}</div>
+<div class="col col-2">${author.name}</div>
+<div class="col col-3">${author.surname}</div>
 </li>
 </#list>
 </ul>

@@ -1,6 +1,8 @@
 package ru.itgirl.libraryproject.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.itgirl.libraryproject.dto.AuthorCreateDto;
 import ru.itgirl.libraryproject.dto.AuthorDto;
@@ -9,11 +11,17 @@ import ru.itgirl.libraryproject.dto.AuthorUpdateDto;
 
 import java.util.List;
 
+@Controller
 @RestController
 @RequiredArgsConstructor
 public class AuthorController {
     private final AuthorService authorService;
 
+    @GetMapping("/authors")
+    String getBooksView(Model model) {
+        model.addAttribute("authors", authorService.getAllAuthors());
+        return "authors";
+    }
     @GetMapping("/author/{id}")
     AuthorDto getAuthorById (@PathVariable("id") Long id) {
         return authorService.getAuthorById(id);
