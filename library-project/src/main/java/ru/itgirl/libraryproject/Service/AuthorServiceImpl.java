@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject.dto.*;
@@ -15,10 +16,13 @@ import ru.itgirl.libraryproject.repositories.GenreRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthorServiceImpl implements AuthorService{
     private final AuthorRepository authorRepository;
     private final GenreRepository genreRepository;
@@ -30,8 +34,16 @@ public class AuthorServiceImpl implements AuthorService{
     }
     @Override
     public AuthorDto getAuthorById (Long id) {
-        Author author = authorRepository.findById(id).orElseThrow();
-        return convertToDto(author);
+        log.info("Try to find author by id {}", id);
+        Optional<Author> author = authorRepository.findById(id);
+        if (author.isPresent()) {
+            AuthorDto authorDto = convertToDto(author.get());
+            log.info("Author: {}", authorDto.toString());
+            return authorDto;
+    } else {
+            log.error("Author with id {} not found", id);
+            throw new NoSuchElementException("No value present");
+        }
     }
 
     @Override

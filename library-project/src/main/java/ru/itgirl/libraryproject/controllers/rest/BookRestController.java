@@ -1,5 +1,6 @@
 package ru.itgirl.libraryproject.controllers.rest;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.itgirl.libraryproject.dto.BookCreateDto;
@@ -9,6 +10,7 @@ import ru.itgirl.libraryproject.dto.BookUpdateDto;
 
 @RestController //отдают данные в формате json
 @RequiredArgsConstructor
+@SecurityRequirement(name = "library-users")
 public class BookRestController {
 
     private final BookService bookService;

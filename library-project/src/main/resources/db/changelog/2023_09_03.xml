@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="init db" author="Daria">
+            <sql>
+                Create table if not exists role (
+                id bigserial PRIMARY KEY,
+                name varchar NOT NULL
+                );
+
+                Create table if not exists role_user (
+                role_id bigint NOT NULL,
+                user_id bigint NOT NULL,
+                FOREIGN KEY (role_id) REFERENCES role (id),
+                FOREIGN KEY (user_id) REFERENCES users (id)
+                );
+
+                Insert into role (name) values
+                ('USER'),
+                ('ADMIN');
+
+                Insert into role_user (role_id, user_id) values
+                (1,1),
+                (2,2);
+
+            </sql>
+    </changeSet >
+</databaseChangeLog>
